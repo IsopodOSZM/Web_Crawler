@@ -22,11 +22,26 @@ def main():
     tag = decide_tag()
     if tag=="img":
         sources = [x.attrib["src"] for x in elmtree.iter(tag)]
+        download(sources)
     elif tag=="video" or tag=="audio":
         sources = [x.find("source").attrib["src"] for x in elmtree.iter(tag)]
+        download(sources)
     else:
-        sources = [x.te for x in elmtree.iter(tag)]
-
+        sources = []
+        buffer = []
+        for y in [x.itertext() for x in elmtree.iter(tag)]:
+            for z in y:
+                buffer.append(z)
+            sources.append(buffer)
+            buffer = []
+        if len(sources)==0:
+            print("No text or elements found.")
+        else:
+            for x in sources:
+                for y in x:
+                    print(y)
+                print("")
+    
 
 
 def close_tags(tree: str):
