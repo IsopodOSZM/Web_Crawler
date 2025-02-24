@@ -40,7 +40,7 @@ def main():
             for x in sources:
                 for y in x:
                     print(y)
-                print("")
+                print()
     
 
 
